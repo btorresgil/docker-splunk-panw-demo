@@ -11,7 +11,7 @@ command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed yet.  A
 touch $PWD/license.lic
 
 # Shut down any current splunk-demo
-docker rm -fv splunk-demo >/dev/null
+docker rm -fv splunk-demo >/dev/null 2>&1
 
 # docker pull latest version of demo
 docker pull btorresgil/splunk-panw-demo
