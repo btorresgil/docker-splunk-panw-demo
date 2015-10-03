@@ -20,11 +20,13 @@ RUN mv /opt/splunk/etc/apps/Splunk-App-Data-Generator-master /opt/splunk/etc/app
 RUN rm -f /pan_datagen.zip
 
 # Add data generator user
-RUN echo './bin/splunk add user pan -password pan -role pan -auth admin:${_SPLUNK_PW}'
+RUN echo './bin/splunk add user pan -password pan -role pan -auth admin:${_SPLUNK_PW}' >> /init/setup
 
 # Add 514/udp syslog input to app
 RUN mkdir /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local
-COPY inputs.conf /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local/inputs.conf
+COPY inputs.conf /inputs.conf
+RUN echo 'cp -n /inputs.conf /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local/inputs.conf' >> /init/setup
+RUN echo 'rm -f /inputs.conf' >> /init/setup
 
 VOLUME /opt/splunk/var/lib/splunk
 
