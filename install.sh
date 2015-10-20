@@ -51,3 +51,16 @@ docker run -d --name splunk-demo \
     -v $PWD/datagen-local:/opt/splunk/etc/apps/pan_datagen/local \
     -v /etc/localtime:/etc/localtime:ro \
     btorresgil/splunk-panw-demo
+
+# Create an upgrade script
+echo '#!/bin/sh' > ${PWD}/upgrade.sh
+echo 'curl -sSL http://bit.ly/splunk-panw-demo | sudo sh' >> ${PWD}/upgrade.sh
+chmod +x ${PWD}/upgrade.sh
+
+# Create an upgrade script on the desktop if there is a desktop
+if [ -d "${HOME}/Desktop" ]; then
+    echo '#!/bin/sh' > ${HOME}/Desktop/upgrade-splunk.sh
+    echo 'cd ${PWD}' >> ${HOME}/Desktop/upgrade-splunk.sh
+    echo 'curl -sSL http://bit.ly/splunk-panw-demo | sudo sh' >> ${HOME}/Desktop/upgrade-splunk.sh
+    chmod +x ${HOME}/Desktop/upgrade-splunk.sh
+fi
