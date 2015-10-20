@@ -1,0 +1,53 @@
+#!/bin/bash
+
+APP_HOME=/opt/splunk/etc/apps/SplunkforPaloAltoNetworks
+DATAGEN_HOME=/opt/splunk/etc/apps/pan_datagen
+
+_SPLUNK_PW=${SPLUNK_PW:-changeme}
+
+cd /opt/splunk
+
+mkdir /local
+mkdir ${APP_HOME}
+mkdir ${DATAGEN_HOME}
+
+# Upgrade the Palo Alto Networks app, even if a config exists already
+if [ -d "${APP_HOME}/default" ]; then
+    # Backup the local directory
+    cp -R ${APP_HOME}/local /local/panw-app
+    # Delete everything but the local directory itself
+    find ${APP_HOME}/* -type d ! -name local -exec rm -rf {} +
+    rm -f ${APP_HOME}/*
+    rm -f ${APP_HOME}/local/*
+fi
+cp -R /panw-apps/SplunkforPaloAltoNetworks/* ${APP_HOME}/
+if [ -d "/local/panw-app" ]; then
+    cp -R /local/panw-app/* ${APP_HOME}/local/
+fi
+
+# Upgrade the pan_datagen app, even if a config exists already
+if [ -d "${DATAGEN_HOME}/default" ]; then
+    # Backup the local directory
+    cp -R ${DATAGEN_HOME}/local /local/panw-app
+    # Delete everything but the local directory itself
+    find ${DATAGEN_HOME}/* -type d ! -name local -exec rm -rf {} +
+    rm -f ${DATAGEN_HOME}/*
+    rm -f ${DATAGEN_HOME}/local/*
+fi
+cp -R /panw-apps/pan_datagen/* ${DATAGEN_HOME}/
+if [ -d "/local/pan_datagen-app" ]; then
+    cp -R /local/pan_datagen-app ${DATAGEN_HOME}/local
+fi
+
+# Copy the default inputs.conf for the Palo Alto Networks App, if one
+# doesn't exist already.
+cp -n /inputs.conf ${APP_HOME}/local/inputs.conf
+rm -f /inputs.conf
+
+rm -rf /local
+
+# Add data generator user
+./bin/splunk add user pan -password pan -role pan -auth admin:${_SPLUNK_PW}
+
+# Do an extra chown to ensure the whole directory is owned by user splunk
+chown -R splunk: /opt/splunk
