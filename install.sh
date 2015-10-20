@@ -40,6 +40,7 @@ docker run -d --name splunk-demo \
     -v $PWD/db:/opt/splunk/var/lib/splunk \
     -v $PWD/system-local:/opt/splunk/etc/system/local \
     -v $PWD/users-local:/opt/splunk/etc/users \
+    -v $PWD/auth-local:/opt/splunk/etc/auth \
     -v $PWD/app-local:/opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local \
     -v $PWD/datagen-local:/opt/splunk/etc/apps/pan_datagen/local \
     -v /etc/localtime:/etc/localtime:ro \
