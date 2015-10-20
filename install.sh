@@ -11,7 +11,13 @@ command -v docker >/dev/null 2>&1 || { echo >&2 "Docker is not installed yet.  A
 # This determines if fresh install or existing install
 if [ -d "$PWD/system-local" ]; then
     echo "Found existing Splunk config in local directory. Performing upgrade."
-    UPGRADE="-e SPUNK_EXISTING_CONFIG=true"
+    if [ -d "$PWD/auth-local" ]; then
+        UPGRADE="-e SPUNK_EXISTING_CONFIG=true"
+    else
+        echo "No auth-local directory, upgrade impossible. Resetting image and upgrading."
+        UPGRADE=""
+        rm -rf db system-local users-local auth-local
+    fi
 else
     echo "No existing Splunk config. Performing fresh install."
     UPGRADE=""
