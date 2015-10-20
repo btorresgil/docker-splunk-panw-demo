@@ -1,8 +1,8 @@
-FROM btorresgil/splunk
+FROM btorresgil/splunk:6.2.6
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
-ENV REFRESHED_AT 2015-10-02
+ENV REFRESHED_AT 2015-10-20
 
 # Install unzip
 RUN yum install -y unzip
@@ -27,6 +27,7 @@ RUN mkdir /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local
 COPY inputs.conf /inputs.conf
 RUN echo 'cp -n /inputs.conf /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/local/inputs.conf' >> /init/setup
 RUN echo 'rm -f /inputs.conf' >> /init/setup
+RUN echo 'chown -R splunk: /opt/splunk' >> /init/setup
 
 VOLUME /opt/splunk/var/lib/splunk
 
