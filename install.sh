@@ -54,13 +54,37 @@ docker run -d --name splunk-demo \
 
 # Create an upgrade script
 echo '#!/bin/sh' > ${PWD}/upgrade.sh
+echo 'cd ${PWD}' >> ${PWD}/upgrade.sh
 echo 'curl -sSL http://bit.ly/splunk-panw-demo | sudo sh' >> ${PWD}/upgrade.sh
 chmod +x ${PWD}/upgrade.sh
 
-# Create an upgrade script on the desktop if there is a desktop
+# Create an start script
+echo '#!/bin/sh' > ${PWD}/start.sh
+echo 'service docker start' >> ${PWD}/start.sh
+echo 'docker start splunk-demo' >> ${PWD}/start.sh
+chmod +x ${PWD}/start.sh
+
+# Create an upgrade and start script on the desktop if there is a desktop
+
 if [ -d "${HOME}/Desktop" ]; then
-    echo '#!/bin/sh' > ${HOME}/Desktop/upgrade-splunk.sh
-    echo 'cd ${PWD}' >> ${HOME}/Desktop/upgrade-splunk.sh
-    echo 'curl -sSL http://bit.ly/splunk-panw-demo | sudo sh' >> ${HOME}/Desktop/upgrade-splunk.sh
-    chmod +x ${HOME}/Desktop/upgrade-splunk.sh
+    SHORTCUT='${HOME}/Desktop/upgrade-splunk.desktop'
+    echo '[Desktop Entry]' > ${SHORTCUT}
+    echo 'Type=Application' >> ${SHORTCUT}
+    echo 'Name=Upgrade Splunk' >> ${SHORTCUT}
+    echo 'Exec=${PWD}/upgrade.sh' >> ${SHORTCUT}
+    echo 'Icon=${PWD}/splunk_icon.png' >> ${SHORTCUT}
+    echo 'Terminal=true' >> ${SHORTCUT}
+    echo 'Comment=Created by Splunk PANW Demo Installer' >> ${SHORTCUT}
+    chmod +x ${SHORTCUT}
+
+    SHORTCUT='${HOME}/Desktop/start-splunk.desktop'
+    echo '[Desktop Entry]' > ${SHORTCUT}
+    echo 'Type=Application' >> ${SHORTCUT}
+    echo 'Name=Start Splunk' >> ${SHORTCUT}
+    echo 'Exec=${PWD}/start.sh' >> ${SHORTCUT}
+    echo 'Icon=${PWD}/splunk_icon.png' >> ${SHORTCUT}
+    echo 'Terminal=true' >> ${SHORTCUT}
+    echo 'Comment=Created by Splunk PANW Demo Installer' >> ${SHORTCUT}
+    chmod +x ${SHORTCUT}
 fi
+
