@@ -65,7 +65,7 @@ echo "docker start splunk-demo" >> ${PWD}/start.sh
 chmod +x ${PWD}/start.sh
 
 # Get the Splunk icon
-curl --silent -o ${PWD}/splunk_icon.png "https://github.com/btorresgil/docker-splunk-panw-demo/blob/master/splunk_icon.png"
+curl --silent -o ${PWD}/splunk_icon.png "https://raw.githubusercontent.com/btorresgil/docker-splunk-panw-demo/master/splunk_icon.png"
 
 # Create an upgrade and start script on the desktop if there is a desktop
 
