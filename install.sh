@@ -73,7 +73,7 @@ if [ -d "${HOME}/Desktop" ]; then
     SHORTCUT="${HOME}/Desktop/upgrade-splunk.desktop"
     echo "[Desktop Entry]" > ${SHORTCUT}
     echo "Type=Application" >> ${SHORTCUT}
-    echo "Name=Upgrade Splunk" >> ${SHORTCUT}
+    echo "Name=Upgrade Splunk App" >> ${SHORTCUT}
     echo "Exec=${PWD}/upgrade.sh" >> ${SHORTCUT}
     echo "Icon=${PWD}/splunk_icon.png" >> ${SHORTCUT}
     echo "Terminal=true" >> ${SHORTCUT}
