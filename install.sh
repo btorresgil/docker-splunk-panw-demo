@@ -70,7 +70,7 @@ curl --silent -o ${PWD}/splunk_icon.png "https://github.com/btorresgil/docker-sp
 # Create an upgrade and start script on the desktop if there is a desktop
 
 if [ -d "${HOME}/Desktop" ]; then
-    SHORTCUT="${HOME}/Desktop/upgrade-splunk.desktop"
+    SHORTCUT="${HOME}/Desktop/Upgrade Splunk App.desktop"
     echo "[Desktop Entry]" > ${SHORTCUT}
     echo "Type=Application" >> ${SHORTCUT}
     echo "Name=Upgrade Splunk App" >> ${SHORTCUT}
@@ -78,9 +78,9 @@ if [ -d "${HOME}/Desktop" ]; then
     echo "Icon=${PWD}/splunk_icon.png" >> ${SHORTCUT}
     echo "Terminal=true" >> ${SHORTCUT}
     echo "Comment=Created by Splunk PANW Demo Installer" >> ${SHORTCUT}
-    chmod +x ${SHORTCUT}
+    chmod +x "${SHORTCUT}"
 
-    SHORTCUT="${HOME}/Desktop/start-splunk.desktop"
+    SHORTCUT="${HOME}/Desktop/Start Splunk.desktop"
     echo "[Desktop Entry]" > ${SHORTCUT}
     echo "Type=Application" >> ${SHORTCUT}
     echo "Name=Start Splunk" >> ${SHORTCUT}
@@ -88,6 +88,6 @@ if [ -d "${HOME}/Desktop" ]; then
     echo "Icon=${PWD}/splunk_icon.png" >> ${SHORTCUT}
     echo "Terminal=true" >> ${SHORTCUT}
     echo "Comment=Created by Splunk PANW Demo Installer" >> ${SHORTCUT}
-    chmod +x ${SHORTCUT}
+    chmod +x "${SHORTCUT}"
 fi
 
