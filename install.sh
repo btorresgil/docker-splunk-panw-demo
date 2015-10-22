@@ -16,7 +16,7 @@ if [ -d "$PWD/system-local" ]; then
     else
         echo "No auth-local directory, upgrade impossible. Resetting image and upgrading."
         UPGRADE=""
-        rm -rf db system-local users-local auth-local
+        rm -rf db system-local users-local app-local
     fi
 else
     echo "No existing Splunk config. Performing fresh install."
