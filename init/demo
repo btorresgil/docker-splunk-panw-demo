@@ -28,7 +28,7 @@ fi
 # Upgrade the pan_datagen app, even if a config exists already
 if [ -d "${DATAGEN_HOME}/default" ]; then
     # Backup the local directory
-    cp -R ${DATAGEN_HOME}/local /local/panw-app
+    cp -R ${DATAGEN_HOME}/local /local/pan_datagen-app
     # Delete everything but the local directory itself
     find ${DATAGEN_HOME}/* -type d ! -name local -exec rm -rf {} +
     rm -f ${DATAGEN_HOME}/*
@@ -36,7 +36,7 @@ if [ -d "${DATAGEN_HOME}/default" ]; then
 fi
 cp -R /panw-apps/pan_datagen/* ${DATAGEN_HOME}/
 if [ -d "/local/pan_datagen-app" ]; then
-    cp -R /local/pan_datagen-app ${DATAGEN_HOME}/local
+    cp -R /local/pan_datagen-app/* ${DATAGEN_HOME}/local
 fi
 
 # Copy the default inputs.conf for the Palo Alto Networks App, if one
