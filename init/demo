@@ -1,6 +1,7 @@
 #!/bin/bash
 
 APP_HOME=/opt/splunk/etc/apps/SplunkforPaloAltoNetworks
+ADDON_HOME=/opt/splunk/etc/apps/Splunk_TA_paloalto
 DATAGEN_HOME=/opt/splunk/etc/apps/pan_datagen
 
 _SPLUNK_PW=${SPLUNK_PW:-changeme}
@@ -9,6 +10,7 @@ cd /opt/splunk
 
 mkdir /local
 mkdir ${APP_HOME}
+mkdir ${ADDON_HOME}
 mkdir ${DATAGEN_HOME}
 
 # Upgrade the Palo Alto Networks app, even if a config exists already
@@ -23,6 +25,20 @@ fi
 cp -R /panw-apps/SplunkforPaloAltoNetworks/* ${APP_HOME}/
 if [ -d "/local/panw-app" ]; then
     cp -R /local/panw-app/* ${APP_HOME}/local/
+fi
+
+# Upgrade the Splunk_TA_paloalto Add-on, even if a config exists already
+if [ -d "${ADDON_HOME}/default" ]; then
+    # Backup the local directory
+    cp -R ${ADDON_HOME}/local /local/panw-addon
+    # Delete everything but the local directory itself
+    find ${ADDON_HOME}/* -type d ! -name local -exec rm -rf {} +
+    rm -f ${ADDON_HOME}/*
+    rm -f ${ADDON_HOME}/local/*
+fi
+cp -R /panw-apps/Splunk_TA_paloalto/* ${ADDON_HOME}/
+if [ -d "/local/panw-addon" ]; then
+    cp -R /local/panw-addon/* ${ADDON_HOME}/local
 fi
 
 # Upgrade the pan_datagen app, even if a config exists already

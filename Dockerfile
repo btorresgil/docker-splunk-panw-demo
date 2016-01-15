@@ -1,4 +1,4 @@
-FROM btorresgil/splunk:6.2.6
+FROM btorresgil/splunk:6.3.2
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
@@ -18,6 +18,12 @@ RUN unzip /SplunkforPaloAltoNetworks.zip -d /panw-apps/
 RUN mv /panw-apps/SplunkforPaloAltoNetworks-master /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.zip
 
+# Download the latest stable Palo Alto Networks Add-on for Splunk
+RUN wget -O /Splunk_TA_paloalto.zip https://github.com/PaloAltoNetworks-BD/Splunk_TA_paloalto/archive/master.zip
+RUN unzip /Splunk_TA_paloalto.zip -d /panw-apps/
+RUN mv /panw-apps/Splunk_TA_paloalto-master /panw-apps/Splunk_TA_paloalto
+RUN rm -f /Splunk_TA_paloalto.zip
+
 # Download the latest stable Palo Alto Networks data generator app for Splunk
 RUN wget -O /pan_datagen.zip https://github.com/PaloAltoNetworks-BD/Splunk-App-Data-Generator/archive/master.zip
 RUN unzip /pan_datagen.zip -d /panw-apps/
@@ -26,6 +32,7 @@ RUN rm -f /pan_datagen.zip
 
 # Add 514/udp syslog input to app
 RUN mkdir /panw-apps/SplunkforPaloAltoNetworks/local
+RUN mkdir /panw-apps/Splunk_TA_paloalto/local
 RUN mkdir /panw-apps/pan_datagen/local
 COPY inputs.conf /inputs.conf
 
