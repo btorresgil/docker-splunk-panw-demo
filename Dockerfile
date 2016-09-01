@@ -1,4 +1,4 @@
-FROM btorresgil/splunk:6.3.2
+FROM btorresgil/splunk:6.4.3
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
