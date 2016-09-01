@@ -13,21 +13,21 @@ RUN yum install -y unzip
 RUN mkdir /panw-apps
 
 # Download the latest stable Palo Alto Networks App for Splunk
-RUN wget -O /SplunkforPaloAltoNetworks.zip https://github.com/PaloAltoNetworks-BD/SplunkforPaloAltoNetworks/archive/master.zip
+RUN wget -O /SplunkforPaloAltoNetworks.zip https://github.com/PaloAltoNetworks-BD/SplunkforPaloAltoNetworks/archive/5.0.1.zip
 RUN unzip /SplunkforPaloAltoNetworks.zip -d /panw-apps/
-RUN mv /panw-apps/SplunkforPaloAltoNetworks-master /panw-apps/SplunkforPaloAltoNetworks
+RUN mv /panw-apps/SplunkforPaloAltoNetworks-5.0.1 /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.zip
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
-RUN wget -O /Splunk_TA_paloalto.zip https://github.com/PaloAltoNetworks-BD/Splunk_TA_paloalto/archive/master.zip
+RUN wget -O /Splunk_TA_paloalto.zip https://github.com/PaloAltoNetworks-BD/Splunk_TA_paloalto/archive/3.5.2.zip
 RUN unzip /Splunk_TA_paloalto.zip -d /panw-apps/
-RUN mv /panw-apps/Splunk_TA_paloalto-master /panw-apps/Splunk_TA_paloalto
+RUN mv /panw-apps/Splunk_TA_paloalto-3.5.2 /panw-apps/Splunk_TA_paloalto
 RUN rm -f /Splunk_TA_paloalto.zip
 
 # Download the latest stable Palo Alto Networks data generator app for Splunk
-RUN wget -O /pan_datagen.zip https://github.com/PaloAltoNetworks-BD/Splunk-App-Data-Generator/archive/master.zip
+RUN wget -O /pan_datagen.zip https://github.com/PaloAltoNetworks-BD/Splunk-App-Data-Generator/archive/v2.3.zip
 RUN unzip /pan_datagen.zip -d /panw-apps/
-RUN mv /panw-apps/Splunk-App-Data-Generator-master /panw-apps/pan_datagen
+RUN mv /panw-apps/Splunk-App-Data-Generator-2.3 /panw-apps/pan_datagen
 RUN rm -f /pan_datagen.zip
 
 # Add 514/udp syslog input to app
