@@ -18,7 +18,7 @@ Start by creating a directory for the demo files. (You can place the files anywh
     mkdir /opt/splunk-demo     # this command not needed for upgrades
     cd /opt/splunk-demo
 
-**Install the demo**
+**Install the demo on Ubuntu or Kali Linux**
 
 From inside the demo directory you created, type this command to install or upgrade the Palo Alto Networks Splunk app demo:
 
@@ -63,10 +63,7 @@ You can run the demo unlicnesed or with a license.
 
 10 GB indexed per day with a free license from the [Splunk Developer Portal](http://dev.splunk.com/page/developer_license_sign_up). This is useful for longer running servers, or servers that need to receive lots of logs from a live firewall:
 
-To install the license, place it in the demo directory and rename it to `license.lic`.
-
-    # assuming the demo directory is /opt/splunk-demo
-    mv splunk.license /opt/splunk-demo/license.lic
+To install the license, in the Splunk GUI go to Settings -> Licensing
 
 After the server is licensed, it will make you login to the web gui.  The default credentials are admin/paloalto.
 
@@ -78,5 +75,5 @@ https://github.com/btorresgil/docker-splunk-panw-demo/issues
 
 ## More information
 
-See the README for the base Splunk docker image for more information on available volumes and environment variables:  
-https://github.com/btorresgil/docker-splunk
+See the README for the base Splunk docker image for more information on available volumes and environment variables:
+https://github.com/splunk/docker-splunk/tree/master/enterprise

@@ -1,46 +1,55 @@
-FROM btorresgil/splunk:6.4.3
+FROM splunk/splunk:6.5.0
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
-ENV REFRESHED_AT 2016-08-31
+ENV REFRESHED_AT 2016-10-8
 
-# Copy in the demo setup script
-COPY init/demo /init/demo
-
-# Install unzip
-RUN yum install -y unzip
+RUN apt-get update && apt-get install -y wget
 
 RUN mkdir /panw-apps
 
 # Download the latest stable Palo Alto Networks App for Splunk
-RUN wget -O /SplunkforPaloAltoNetworks.zip https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/5.2.0.zip
-RUN unzip /SplunkforPaloAltoNetworks.zip -d /panw-apps/
-RUN mv /panw-apps/SplunkforPaloAltoNetworks-5.2.0 /panw-apps/SplunkforPaloAltoNetworks
-RUN rm -f /SplunkforPaloAltoNetworks.zip
+RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/5.3.0.tar.gz
+RUN tar -xvf /SplunkforPaloAltoNetworks.tar.gz -C /panw-apps/
+RUN mv /panw-apps/SplunkforPaloAltoNetworks-5.3.0 /panw-apps/SplunkforPaloAltoNetworks
+RUN rm -f /SplunkforPaloAltoNetworks.tar.gz
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
-RUN wget -O /Splunk_TA_paloalto.zip https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/3.6.1.zip
-RUN unzip /Splunk_TA_paloalto.zip -d /panw-apps/
-RUN mv /panw-apps/Splunk_TA_paloalto-3.6.1 /panw-apps/Splunk_TA_paloalto
-RUN rm -f /Splunk_TA_paloalto.zip
+RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/3.7.0.tar.gz
+RUN tar -xzf /Splunk_TA_paloalto.tar.gz -C /panw-apps/
+RUN mv /panw-apps/Splunk_TA_paloalto-3.7.0 /panw-apps/Splunk_TA_paloalto
+RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Palo Alto Networks data generator app for Splunk
-RUN wget -O /pan_datagen.zip https://github.com/PaloAltoNetworks/Splunk-App-Data-Generator/archive/v3.0.zip
-RUN unzip /pan_datagen.zip -d /panw-apps/
-RUN mv /panw-apps/Splunk-App-Data-Generator-3.0 /panw-apps/pan_datagen
-RUN rm -f /pan_datagen.zip
+#RUN wget -qO /pan_datagen.tar.gz https://github.com/PaloAltoNetworks/Splunk-App-Data-Generator/archive/v3.0.tar.gz
+#RUN tar -xzf /pan_datagen.tar.gz -C /panw-apps/
+#RUN mv /panw-apps/Splunk-App-Data-Generator-3.0 /panw-apps/pan_datagen
+#RUN rm -f /pan_datagen.tar.gz
+
+# Download the latest stable Eventgen
+RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/develop.tar.gz
+RUN tar -xzf /eventgen.tar.gz -C /panw-apps/
+RUN mv /panw-apps/eventgen-develop /panw-apps/SA-Eventgen
+RUN rm -f /pan_datagen.tar.gz
 
 # Add 514/udp syslog input to app
 RUN mkdir /panw-apps/SplunkforPaloAltoNetworks/local
 RUN mkdir /panw-apps/Splunk_TA_paloalto/local
-RUN mkdir /panw-apps/pan_datagen/local
+RUN mkdir /panw-apps/SA-Eventgen/local
 COPY inputs.conf /inputs.conf
 
-RUN echo '/bin/bash -x /init/demo' >> /init/setup
+RUN apt-get purge -y --auto-remove wget
 
-VOLUME /opt/splunk/var/lib/splunk
+COPY demo_entrypoint.sh /sbin/demo_entrypoint.sh
+RUN chmod +x /sbin/demo_entrypoint.sh
 
-EXPOSE 8000 8089 9997 514/udp
+# Ports Splunk Web, Splunk Daemon, KVStore, Splunk Indexing Port, Network Input, HTTP Event Collector
+EXPOSE 8000/tcp 8089/tcp 8191/tcp 9997/tcp 1514 8088/tcp
 
-ENTRYPOINT ["/bin/bash", "-e", "/init/start"]
-CMD ["run"]
+WORKDIR /opt/splunk
+
+# Configurations folder, var folder for everything (indexes, logs, kvstore)
+VOLUME [ "/opt/splunk/etc", "/opt/splunk/var" ]
+
+ENTRYPOINT ["/sbin/demo_entrypoint.sh"]
+CMD ["start-service"]
