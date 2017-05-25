@@ -3,7 +3,7 @@ Palo Alto Networks Splunk App Demo for Docker
 
 ## Information
 
-A docker image containing Splunk that runs the latest Palo Alto Networks Splunk app.  The image also contains an optional data generator to produce demonstration data for the app.  The data generator is on by default.  To disable it, disabled the `pan_datagen` app in Splunk.
+A docker image containing Splunk that runs the latest Palo Alto Networks Splunk app.  The image also containes Splunk EventGen App to generate data. The EventGen is on by default. To disable it, disable the `SA_Eventgen` app in splunk.
 
 ## Install or Upgrade
 
