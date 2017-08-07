@@ -1,23 +1,25 @@
-FROM splunk/splunk:6.5.0
+FROM splunk/splunk:6.6.2
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
-ENV REFRESHED_AT 2017-04-26
- 
+ENV SPLUNK_USER root
+ENV REFRESHED_AT 2017-07-07
+ENV APP_VERSION 5.4.1
+ENV ADDON_VERSION 3.8.1 
 RUN apt-get update && apt-get install -y wget
 
 RUN mkdir /panw-apps
 
 # Download the latest stable Palo Alto Networks App for Splunk
-RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/5.4.0.tar.gz
+RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/${APP_VERSION}.tar.gz
 RUN tar -xvf /SplunkforPaloAltoNetworks.tar.gz -C /panw-apps/
-RUN mv /panw-apps/SplunkforPaloAltoNetworks-5.4.0 /panw-apps/SplunkforPaloAltoNetworks
+RUN mv /panw-apps/SplunkforPaloAltoNetworks-${APP_VERSION} /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.tar.gz
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
-RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/3.8.0.tar.gz
+RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/${ADDON_VERSION}.tar.gz
 RUN tar -xzf /Splunk_TA_paloalto.tar.gz -C /panw-apps/
-RUN mv /panw-apps/Splunk_TA_paloalto-3.8.0 /panw-apps/Splunk_TA_paloalto
+RUN mv /panw-apps/Splunk_TA_paloalto-${ADDON_VERSION} /panw-apps/Splunk_TA_paloalto
 RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Palo Alto Networks data generator app for Splunk
