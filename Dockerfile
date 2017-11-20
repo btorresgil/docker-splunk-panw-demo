@@ -35,7 +35,7 @@ RUN rm -f /Splunk_TA_paloalto.tar.gz
 RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/develop.tar.gz
 RUN tar -xzf /eventgen.tar.gz -C /panw-apps/
 RUN mv /panw-apps/eventgen-develop /panw-apps/SA-Eventgen
-RUN rm -f /pan_datagen.tar.gz
+RUN rm -f /eventgen.tar.gz
 
 # Add 514/udp syslog input to app
 RUN mkdir /panw-apps/SplunkforPaloAltoNetworks/local
