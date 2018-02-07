@@ -11,15 +11,15 @@ RUN mkdir /panw-apps
 
 # Download the latest stable Palo Alto Networks App for Splunk
 
-RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/6.0.0.tar.gz
+RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/6.0.1.tar.gz
 RUN tar -xvf /SplunkforPaloAltoNetworks.tar.gz -C /panw-apps/
-RUN mv /panw-apps/SplunkforPaloAltoNetworks-6.0.0 /panw-apps/SplunkforPaloAltoNetworks
+RUN mv /panw-apps/SplunkforPaloAltoNetworks-6.0.1 /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.tar.gz
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
-RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/6.0.0.tar.gz
+RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/6.0.2.tar.gz
 RUN tar -xzf /Splunk_TA_paloalto.tar.gz -C /panw-apps/
-RUN mv /panw-apps/Splunk_TA_paloalto-6.0.0 /panw-apps/Splunk_TA_paloalto
+RUN mv /panw-apps/Splunk_TA_paloalto-6.0.2 /panw-apps/Splunk_TA_paloalto
 RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Eventgen
