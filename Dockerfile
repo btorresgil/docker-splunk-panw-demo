@@ -1,4 +1,4 @@
-FROM splunk/splunk:7.0.0
+FROM splunk/splunk:7.1.0
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
