@@ -1,11 +1,13 @@
-FROM splunk/splunk:6.6.2
+FROM splunk/splunk:latest
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
 ENV SPLUNK_USER root
-ENV REFRESHED_AT 2017-07-07
-ENV APP_VERSION 5.4.1
-ENV ADDON_VERSION 3.8.1 
+ENV REFRESHED_AT 2018-10-05
+ENV APP_VERSION 6.0.1
+ENV ADDON_VERSION 6.0.2 
+
+USER root
 
 RUN apt-get update && apt-get install -y wget
 
