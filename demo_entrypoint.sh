@@ -25,12 +25,6 @@ if [ "$1" = 'start-service' ]; then
     rm -f ${ADDON_HOME}/*
     cp -fR /panw-apps/Splunk_TA_paloalto ${APPS_HOME}
 
-    # Upgrade the pan_datagen app, even if a config exists already
-    # Delete everything but the local directory itself
-    #find ${DATAGEN_HOME}/* -type d ! -name local -exec rm -rf {} +
-    #rm -f ${DATAGEN_HOME}/*
-    #cp -fR /panw-apps/pan_datagen ${APPS_HOME}
-
     # Upgrade the SA-Eventgen app, even if a config exists already
     # Delete everything but the local directory itself
     find ${DATAGEN_HOME}/* -type d ! -name local -exec rm -rf {} + &2>1 > /dev/null
