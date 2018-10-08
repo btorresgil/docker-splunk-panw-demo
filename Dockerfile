@@ -1,4 +1,4 @@
-FROM splunk/splunk:latest
+FROM splunk/splunk:7.2
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
