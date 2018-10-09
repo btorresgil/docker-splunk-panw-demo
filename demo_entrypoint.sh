@@ -68,8 +68,10 @@ if [ "$1" = 'start-service' ]; then
   fi
 fi
 
-export SPLUNK_START_ARGS="${SPLUNK_START_ARGS} --accept-license --answer-yes"
+export SPLUNK_START_ARGS="${SPLUNK_START_ARGS} --accept-license"
+export SPLUNK_PASSWORD="paloalto"
 
 /sbin/entrypoint.sh $@
 
 sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk edit user admin -password paloalto -auth admin:changeme"
+sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk add user demo -password paloalto -auth admin:changeme"
