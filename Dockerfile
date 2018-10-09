@@ -6,33 +6,32 @@ ENV SPLUNK_USER root
 ENV REFRESHED_AT 2018-10-05
 ENV APP_VERSION 6.0.1
 ENV ADDON_VERSION 6.0.2 
+ENV EVENTGEN_VERSION 6.2.1
 
 USER root
 
 RUN apt-get update && apt-get install -y wget
 
-ENV REFRESHED_AT 2017-07-07
-ENV SPLUNK_USER root
-
 RUN mkdir /panw-apps
 
 # Download the latest stable Palo Alto Networks App for Splunk
 
-RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/6.0.1.tar.gz
+RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/${APP_VERSION}.tar.gz
 RUN tar -xvf /SplunkforPaloAltoNetworks.tar.gz -C /panw-apps/
 RUN mv /panw-apps/SplunkforPaloAltoNetworks-6.0.1 /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.tar.gz
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
-RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/6.0.2.tar.gz
+RUN wget -qO /Splunk_TA_paloalto.tar.gz https://github.com/PaloAltoNetworks/Splunk_TA_paloalto/archive/${ADDON_VERSION}.tar.gz
 RUN tar -xzf /Splunk_TA_paloalto.tar.gz -C /panw-apps/
-RUN mv /panw-apps/Splunk_TA_paloalto-6.0.2 /panw-apps/Splunk_TA_paloalto
+RUN mv /panw-apps/Splunk_TA_paloalto-${ADDON_VERSION} /panw-apps/Splunk_TA_paloalto
 RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Eventgen
-RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/develop.tar.gz
+# RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/develop.tar.gz
+RUN wget -qO /eventgen.tar.gz https://github.com/splunk/eventgen/archive/${EVENTGEN_VERSION}.tar.gz
 RUN tar -xzf /eventgen.tar.gz -C /panw-apps/
-RUN mv /panw-apps/eventgen-develop /panw-apps/SA-Eventgen
+RUN mv /panw-apps/eventgen-${EVENTGEN_VERSION} /panw-apps/SA-Eventgen
 RUN rm -f /eventgen.tar.gz
 
 # Add 514/udp syslog input to app
