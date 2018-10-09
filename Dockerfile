@@ -6,7 +6,7 @@ ENV SPLUNK_USER root
 ENV REFRESHED_AT 2018-10-05
 ENV APP_VERSION 6.0.1
 ENV ADDON_VERSION 6.0.2 
-ENV EVENTGEN_VERSION 6.2.1
+ENV EVENTGEN_VERSION develop
 
 USER root
 
@@ -28,8 +28,8 @@ RUN mv /panw-apps/Splunk_TA_paloalto-${ADDON_VERSION} /panw-apps/Splunk_TA_paloa
 RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Eventgen
-# RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/develop.tar.gz
-RUN wget -qO /eventgen.tar.gz https://github.com/splunk/eventgen/archive/${EVENTGEN_VERSION}.tar.gz
+RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/${EVENTGEN_VERSION}}.tar.gz
+# RUN wget -qO /eventgen.tar.gz https://github.com/splunk/eventgen/archive/${EVENTGEN_VERSION}.tar.gz
 RUN tar -xzf /eventgen.tar.gz -C /panw-apps/
 RUN mv /panw-apps/eventgen-${EVENTGEN_VERSION} /panw-apps/SA-Eventgen
 RUN rm -f /eventgen.tar.gz
