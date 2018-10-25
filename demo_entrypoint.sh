@@ -17,13 +17,20 @@ if [ "$1" = 'start-service' ]; then
     # Delete everything but the local directory itself
     find ${APP_HOME}/* -type d ! -name local -exec rm -rf {} + &2>1 > /dev/null
     rm -f ${APP_HOME}/*
-    cp -fR /panw-apps/SplunkforPaloAltoNetworks ${APPS_HOME}
+    find /opt/splunk/etc/apps
+    echo "Making Folder"
+    mkdir /opt/splunk/etc/apps/SplunkforPaloAltoNetworks
+    cp -fvR /panw-apps/SplunkforPaloAltoNetworks ${APP_HOME}
+    echo "Find App in SPLUNK"
+    find /opt/splunk/etc/apps/SplunkforPaloAltoNetworks/*
 
     # Upgrade the Splunk_TA_paloalto Add-on, even if a config exists already
     # Delete everything but the local directory itself
     find ${ADDON_HOME}/* -type d ! -name local -exec rm -rf {} + &2>1 > /dev/null
     rm -f ${ADDON_HOME}/*
     cp -fR /panw-apps/Splunk_TA_paloalto ${APPS_HOME}
+    # echo "Find Add-on in SPLUNK"
+    # find /opt/splunk/etc/apps/Splunk_TA_paloalto/*
 
     # Upgrade the SA-Eventgen app, even if a config exists already
     # Delete everything but the local directory itself
@@ -59,10 +66,10 @@ if [ "$1" = 'start-service' ]; then
 
     if [ -e /license.lic ]; then
       echo "Installing license"
-      sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk add licenses /license.lic -auth admin:changeme --accept-license --answer-yes"
+      sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk add licenses /license.lic --accept-license"
     else
       echo "Setting to free demo mode"
-      sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk edit licenser-groups Free -is_active 1 -auth admin:changeme --accept-license --answer-yes"
+      sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk edit licenser-groups Free -is_active 1 --accept-license"
     fi
 
   fi
@@ -74,4 +81,3 @@ export SPLUNK_PASSWORD="paloalto"
 /sbin/entrypoint.sh $@
 
 sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk edit user admin -password paloalto -auth admin:changeme"
-sudo -HEu ${SPLUNK_USER} sh -c "${SPLUNK_HOME}/bin/splunk add user demo -password paloalto -auth admin:changeme"
