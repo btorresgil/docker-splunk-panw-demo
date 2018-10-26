@@ -28,7 +28,7 @@ RUN mv /panw-apps/Splunk_TA_paloalto-${ADDON_VERSION} /panw-apps/Splunk_TA_paloa
 RUN rm -f /Splunk_TA_paloalto.tar.gz
 
 # Download the latest stable Eventgen
-RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/${EVENTGEN_VERSION}}.tar.gz
+RUN wget -qO /eventgen.tar.gz https://github.com/btorresgil/eventgen/archive/${EVENTGEN_VERSION}.tar.gz
 # RUN wget -qO /eventgen.tar.gz https://github.com/splunk/eventgen/archive/${EVENTGEN_VERSION}.tar.gz
 RUN tar -xzf /eventgen.tar.gz -C /panw-apps/
 RUN mv /panw-apps/eventgen-${EVENTGEN_VERSION} /panw-apps/SA-Eventgen
