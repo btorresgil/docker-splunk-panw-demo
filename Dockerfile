@@ -4,8 +4,8 @@ MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
 ENV SPLUNK_USER root
 ENV REFRESHED_AT 2018-10-05
-ENV APP_VERSION 6.0.1
-ENV ADDON_VERSION 6.0.2 
+ENV APP_VERSION 6.1.0
+ENV ADDON_VERSION 6.1.0 
 ENV EVENTGEN_VERSION develop
 
 USER root
@@ -18,7 +18,7 @@ RUN mkdir /panw-apps
 
 RUN wget -qO /SplunkforPaloAltoNetworks.tar.gz https://github.com/PaloAltoNetworks/SplunkforPaloAltoNetworks/archive/${APP_VERSION}.tar.gz
 RUN tar -xvf /SplunkforPaloAltoNetworks.tar.gz -C /panw-apps/
-RUN mv /panw-apps/SplunkforPaloAltoNetworks-6.0.1 /panw-apps/SplunkforPaloAltoNetworks
+RUN mv /panw-apps/SplunkforPaloAltoNetworks-${APP_VERSION} /panw-apps/SplunkforPaloAltoNetworks
 RUN rm -f /SplunkforPaloAltoNetworks.tar.gz
 
 # Download the latest stable Palo Alto Networks Add-on for Splunk
