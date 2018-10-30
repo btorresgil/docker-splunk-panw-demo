@@ -61,6 +61,14 @@ if [ "$1" = 'start-service' ]; then
     cp -n /inputs.conf ${APP_HOME}/local/inputs.conf
     rm -f /inputs.conf
 
+    # Copy the datamodel.conf for the Palo Alto Networks App, if one
+    # doesn't exist already.
+    cp -n /datamodels.conf ${APP_HOME}/local/datamodels.conf
+    rm -f /datamodels.conf
+    if [ -f "${APP_HOME}/local/datamodels.conf" ]; then
+      echo "DataModel Copied"
+    fi
+
 
     touch etc/.ui_login # Disable the "first time signing in" message
 

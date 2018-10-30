@@ -39,6 +39,7 @@ RUN mkdir /panw-apps/SplunkforPaloAltoNetworks/local
 RUN mkdir /panw-apps/Splunk_TA_paloalto/local
 RUN mkdir /panw-apps/SA-Eventgen/local
 COPY inputs.conf /inputs.conf
+COPY datamodels.conf /datamodels.conf
 
 RUN apt-get purge -y --auto-remove wget
 
