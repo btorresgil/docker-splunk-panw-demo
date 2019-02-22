@@ -24,6 +24,10 @@ From inside the demo directory you created, type this command to install or upgr
 
     curl -sSL http://bit.ly/splunk-panw-demo | sh
 
+## Splunk Login
+
+    Default login is admin:paloalto
+
 ## Start and stop
 
 After installation, the server is running.
