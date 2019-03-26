@@ -1,11 +1,11 @@
-FROM splunk/splunk:7.2.0
+FROM splunk/splunk:7.2.4
 
 MAINTAINER Brian Torres-Gil <btorresgil@dralth.com>
 
 ENV SPLUNK_USER root
 ENV REFRESHED_AT 2018-10-05
-ENV APP_VERSION 6.1.0
-ENV ADDON_VERSION 6.1.0 
+ENV APP_VERSION 6.1.1
+ENV ADDON_VERSION 6.1.1 
 ENV EVENTGEN_VERSION develop
 
 USER root
