@@ -74,7 +74,7 @@ if [ "$1" = 'start-service' ]; then
     # chown -R ${SPLUNK_USER}:${SPLUNK_GROUP} ${SPLUNK_HOME}/var
 
     # Add data generator user
-    # sudo -HEu "${SPLUNK_USER}" sh -c "${SPLUNK_HOME}/bin/splunk add user pan -password pan -role pan -auth admin:changeme --accept-license --answer-yes"
+    # sudo -HEu "${SPLUNK_USER}" sh -c "${SPLUNK_HOME}/bin/splunk add user demo -password paloalto -role user -auth admin:changeme --accept-license --answer-yes"
 
     # if [ -e /license.lic ]; then
     #   echo "Installing license"
